@@ -13,6 +13,7 @@ class Player {
     this._strike = [[], [], [], [], [], []];
     this._cumulativeScores = [];
   }
+  // set propeties value to initial statement
   reset() {
     return (
       (this._hitScore.length = 0),
@@ -42,14 +43,15 @@ class Player {
   get quilles() {
     return this._quilles;
   }
+  //increment the game index into the global array
   incrementGameIndex() {
-    if (this._gameIndex < 20) {
+    if (this._gameIndex < 15) {
       this._gameIndex++;
     } else {
       return this._gameIndex;
     }
   }
-
+  //increment the sub array by frame's turn
   incrementCurrentFrame() {
     if (this._currentFrame < 6) {
       if (this._gameIndex % 3 === 0) {
@@ -58,11 +60,13 @@ class Player {
       return this._currentFrame;
     }
   }
+  //Trigger the game over
   set turnToGameOver(bool) {
     if (this._gameIndex > 14) {
       return (this._gameOver = bool);
     }
   }
+  //handle keels logic
   set quilles(hitPoint) {
     if (this.gameIndex % 3 === 0) {
       return (this._quilles = [...Array(16).keys()]);
@@ -74,7 +78,8 @@ class Player {
     }
   }
 
-  cumulativeScores(num) {
+  //handle the cumulative score when it's a strike, a spare or neither
+  cumulativeScores(hit) {
     if (
       this._currentFrame !== 0 &&
       (this._strike[this._currentFrame - 1][0] === true ||
@@ -82,22 +87,17 @@ class Player {
       this._hitScoreByFrame[this._currentFrame].length < 4 &&
       this._hitScoreByFrame[this._currentFrame].length > 0
     ) {
-      console.log("cumulative strike");
       this._frameScore[this._currentFrame - 1] =
-        this._frameScore[this._currentFrame - 1] + num;
+        this._frameScore[this._currentFrame - 1] + hit;
     }
-
-    console.log(this._cumulativeScores);
     if (this._gameIndex % 3 === 0) {
-      console.log("modulo cumulative");
-      console.log(this._frameScore);
       this._cumulativeScores.push(lodash.sum(this._frameScore));
-      console.log(this._cumulativeScores);
     }
     return this._cumulativeScores;
   }
 
-  spare(num) {
+  // handle the spare case which receive the hit as a param from the bowlingComponent
+  spare(hit) {
     if (
       lodash.sum(this._hitScoreByFrame[this._currentFrame]) === 15 &&
       this._gameIndex !== 3 &&
@@ -107,7 +107,6 @@ class Player {
       this._gameIndex !== 15 &&
       this._currentFrame !== 5
     ) {
-      console.log("spare");
       this._spare[this._currentFrame].push(true, true);
       this._hitScore.push(0);
       this._hitScoreByFrame[this._currentFrame].push(0);
@@ -124,17 +123,17 @@ class Player {
         this._spare[this._currentFrame - 1].includes(true) &&
         this._gameIndex % 3 === 2)
     ) {
-      console.log("ok detection spare -1");
-      this._hitScoreByFrame[this._currentFrame - 1].push(num);
+      this._hitScoreByFrame[this._currentFrame - 1].push(hit);
     }
   }
-  strike(num) {
+
+  // handle the strike case which receive the hit as a param from the bowlingComponent
+  strike(hit) {
     if (
       lodash.sum(this._hitScoreByFrame[this._currentFrame]) === 15 &&
       this._gameIndex % 3 === 1 &&
       this._currentFrame !== 6
     ) {
-      console.log("strike");
       this._hitScore.push(0, 0);
       this._hitScoreByFrame[this._currentFrame].push(0, 0);
       this._quilles = [...Array(16).keys()];
@@ -151,33 +150,24 @@ class Player {
         this._strike[this._currentFrame - 1][0] === true &&
         this._gameIndex % 3 === 2)
     ) {
-      console.log("ok detection strike -1");
-      this._hitScoreByFrame[this._currentFrame - 1].push(num);
+      this._hitScoreByFrame[this._currentFrame - 1].push(hit);
     }
   }
-  set hitScore(num) {
-    console.log(this._currentFrame);
-    console.log(this._gameIndex);
-    console.log(this._hitScore);
-    console.log(this._hitScoreByFrame);
-    console.log(this._cumulativeScores);
-    console.log(this._frameScore);
-    console.log(this._spare);
-    console.log(this._strike);
+
+  //handle the classic case of the incrementation of a hit
+  set hitScore(hit) {
     if (this._currentFrame < 6) {
-      this._hitScore.push(num);
-      this._hitScoreByFrame[this._currentFrame].push(num);
+      this._hitScore.push(hit);
+      this._hitScoreByFrame[this._currentFrame].push(hit);
       this._frameScore.splice(
         this._currentFrame,
         1,
         lodash.sum(this._hitScoreByFrame[this._currentFrame])
       );
     } else if (this._currentFrame > 6) {
-      console.log("dernier");
-
       this._quilles = [...Array(16).keys()];
-      this._hitScore.push(num);
-      this._hitScoreByFrame[this._currentFrame].push(num);
+      this._hitScore.push(hit);
+      this._hitScoreByFrame[this._currentFrame].push(hit);
       const currentScore = lodash.sum(
         this._hitScoreByFrame[this._currentFrame]
       );
@@ -186,7 +176,7 @@ class Player {
     }
   }
 }
-
+//instance a nieuw player object "gamer"
 export let gamer = new Player();
 
 export default Player;

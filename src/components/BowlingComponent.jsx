@@ -8,6 +8,7 @@ import imgStrike from "../utilities/pictures/bowling-strike.gif"
 
 const BowlingComponent = () => {
 
+    //state
     const [quilles, setQuilles] = useState([])
     const [currentFrame, setCurrentFrame] = useState("")
     const [currentHitScore, setCurrentHitScore] = useState([])
@@ -19,6 +20,7 @@ const BowlingComponent = () => {
     const [spare, setSpare] = useState([])
     const [gameIndex, setGameIndex] = useState('')
 
+    // set the data's from the object to the state and handle the display of "x" and "/"
     useEffect(() => {
         setQuilles(gamer._quilles)
         setSpare(gamer._spare)
@@ -36,10 +38,8 @@ const BowlingComponent = () => {
         setStrike(gamer._strike)
     }, [cumulativeScore, currentHitScore])
 
-
-
+    // Trigger the click hit and methods from the object "gamer"
     const handleClickHit = (num) => {
-        console.log("click")
         gamer.incrementGameIndex();
         gamer.hitScore = num
         gamer.incrementCurrentFrame();
@@ -55,6 +55,8 @@ const BowlingComponent = () => {
         setStrike(gamer._strike)
         gamer.turnToGameOver = true
     }
+
+    // handle reset state
     const handleReset = () => {
         setCurrentHitScore([])
         setCurrentFrame(0)
@@ -72,9 +74,7 @@ const BowlingComponent = () => {
             <div className="banner">
                 African Bowling
             </div>
-
             <div>
-
                 <div className="button-container">
 
                     {quilles.map((num, index) => {
@@ -90,9 +90,6 @@ const BowlingComponent = () => {
                 </div>
 
             </div>
-
-
-
             <div className="score">
                 <table id='scoresheetTable' className='scoresheet' cellPadding='1' cellSpacing='0'>
                     <tr className="frame-container">
@@ -117,9 +114,6 @@ const BowlingComponent = () => {
                 </table>
                 {strike[currentFrame - 1] && strike[currentFrame - 1][0] === true ? <> <img className="img-strike" src={imgStrike} alt="img-strike" /><p>This is a strike!!</p> </> : ""}
             </div>
-
-
-
             <div>
             </div>
         </div>
