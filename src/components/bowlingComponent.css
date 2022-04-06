@@ -1,0 +1,118 @@
+.button_class {
+  background-color: #000d5f;
+  color: #fffdfd;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+  font-family: "Rubik Moonrocks", cursive;
+  font-family: "Rubik Wet Paint", cursive;
+}
+.button-container {
+  text-align: center;
+  margin-bottom: 100px;
+  margin-top: 15px;
+  width: 346px;
+  height: 75px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.scoresheet {
+  margin: 0 auto;
+  width: 100%;
+  font-size: 12px;
+  border: 2px solid;
+  text-align: center;
+  table-layout: fixed;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  height: 200px;
+}
+table.scoresheet th,
+tr,
+td {
+  padding: 0;
+  vertical-align: middle;
+  font-family: "Rubik Moonrocks", cursive;
+  font-family: "Rubik Wet Paint", cursive;
+  font-weight: bold;
+}
+table.scoresheet th {
+  border-bottom: 1px solid;
+  height: 50px;
+  border-radius: 20px 30px;
+}
+table.scoresheet th:not(:last-child) {
+  border-right: 1px solid;
+}
+table.scoresheet td {
+  height: 50px;
+}
+table.scoresheet tr td:not(:last-child) {
+  border-right: 1px solid;
+}
+
+table.scoresheet tr:nth-child(2) td:last-child {
+  border-bottom: 1px solid;
+}
+.current-hitscore {
+  font-size: 20px;
+}
+
+.banner {
+  padding-bottom: 20px;
+  margin: auto;
+  text-align: center;
+  padding-top: 20px;
+  font-size: 50px;
+  font-family: "Rubik Moonrocks", cursive;
+  color: #000d5f;
+}
+.pool {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.game {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  margin-left: 20%;
+  margin-right: 20%;
+  border-color: #b0b0b0;
+  border: solid 1px;
+  border-radius: 15px;
+  margin-top: 20px;
+  padding-left: 15px;
+  font-weight: bold;
+}
+.score {
+  text-align: center;
+  padding-top: 10px;
+  margin-left: 20%;
+  margin-right: 20%;
+  border-color: #b0b0b0;
+  border: solid 1px;
+  border-radius: 15px;
+  font-family: "Rubik Moonrocks", cursive;
+  font-family: "Rubik Wet Paint", cursive;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.cumulative-score {
+  font-size: 20px;
+}
+.button_reset {
+  background-color: crimson;
+  color: aliceblue;
+}
+.status {
+  color: rgb(122, 235, 88);
+}
+.status-gameover {
+  color: rgb(226, 70, 9);
+}
+.color_score {
+  color: limegreen;
+}
+.img-strike {
+  border-radius: 20px;
+}
