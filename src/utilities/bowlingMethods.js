@@ -60,23 +60,6 @@ class Player {
       return this._currentFrame;
     }
   }
-  //Trigger the game over
-  set turnToGameOver(bool) {
-    if (this._gameIndex > 14) {
-      return (this._gameOver = bool);
-    }
-  }
-  //handle keels logic
-  set quilles(hitPoint) {
-    if (this.gameIndex % 3 === 0) {
-      return (this._quilles = [...Array(16).keys()]);
-    } else {
-      return (this._quilles = this._quilles.slice(
-        0,
-        this._quilles.length - hitPoint
-      ));
-    }
-  }
 
   //handle the cumulative score when it's a strike, a spare or neither
   cumulativeScores(hit) {
@@ -173,6 +156,23 @@ class Player {
       );
       this._frameScore.splice(this._currentFrame, 1, currentScore);
       this._gameIndex++;
+    }
+  }
+  //Trigger the game over
+  set turnToGameOver(bool) {
+    if (this._gameIndex > 14) {
+      return (this._gameOver = bool);
+    }
+  }
+  //handle keels logic
+  set quilles(hitPoint) {
+    if (this.gameIndex % 3 === 0) {
+      return (this._quilles = [...Array(16).keys()]);
+    } else {
+      return (this._quilles = this._quilles.slice(
+        0,
+        this._quilles.length - hitPoint
+      ));
     }
   }
 }

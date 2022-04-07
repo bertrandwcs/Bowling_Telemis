@@ -20,11 +20,9 @@ const BowlingComponent = () => {
     const [spare, setSpare] = useState([])
     const [gameIndex, setGameIndex] = useState('')
 
-    // set the data's from the object to the state and handle the display of "x" and "/"
+    //  handle the display of "x" and "/"
     useEffect(() => {
         setQuilles(gamer._quilles)
-        setSpare(gamer._spare)
-        setStrike(gamer._strike)
         if (!isEmpty(spare) && spare[currentFrame].includes(true) && spare[currentFrame].length === 2) {
             currentHitScore.splice(gameIndex, 2, "/", "")
         } else if (currentFrame !== 0 && !isEmpty(spare) && spare[currentFrame].includes(true) && spare[currentFrame].length === 1) {
@@ -35,24 +33,24 @@ const BowlingComponent = () => {
         if (!isEmpty(strike) && strike[currentFrame][0] === true && currentFrame < 6) {
             currentHitScore.splice(gameIndex, 3, "x", "", "")
         }
-        setStrike(gamer._strike)
     }, [cumulativeScore, currentHitScore])
 
     // Trigger the click hit and methods from the object "gamer"
-    const handleClickHit = (num) => {
+    const handleClickHit = (hit) => {
         gamer.incrementGameIndex();
-        gamer.hitScore = num
+        gamer.hitScore = hit
         gamer.incrementCurrentFrame();
-        gamer.quilles = num
-        gamer.strike(num)
-        gamer.spare(num)
-        gamer.cumulativeScores(num)
+        gamer.quilles = hit
+        gamer.strike(hit)
+        gamer.spare(hit)
+        gamer.cumulativeScores(hit)
         setCumulativeScores(gamer._cumulativeScores)
         setGameOver(gamer._gameOver)
         setFrameScore(gamer._frameScore)
-        setCumulativeScore([num])
+        setCumulativeScore([hit])
         setCurrentHitScore(gamer._hitScore);
         setStrike(gamer._strike)
+        setSpare(gamer._spare)
         gamer.turnToGameOver = true
     }
 
@@ -70,6 +68,7 @@ const BowlingComponent = () => {
 
 
     return (
+
         <div>
             <div className="banner">
                 African Bowling
@@ -77,10 +76,10 @@ const BowlingComponent = () => {
             <div>
                 <div className="button-container">
 
-                    {quilles.map((num, index) => {
+                    {quilles.map((hit, index) => {
                         return <button className="button_class" key={index} onClick={() => {
-                            handleClickHit(num)
-                        }}>{typeof (num) === "number" ? "?" : num}</button>;
+                            handleClickHit(hit)
+                        }}>{typeof (hit) === "number" ? "?" : hit}</button>;
                     })}
 
                 </div>
@@ -102,13 +101,13 @@ const BowlingComponent = () => {
                     <tr>
                         {currentHitScore ? currentHitScore.map((elem, index) => {
 
-                            return (<td colSpan='2' className="current-hitscore">{elem}</td>
+                            return (<td key={index} colSpan='2' className="current-hitscore">{elem}</td>
                             )
                         }) : ""}
                     </tr>
                     <tr>
                         {cumulativeScores ? cumulativeScores.map((elem, index) => {
-                            return <td colSpan='6' className="cumulative-score">{elem}</td>
+                            return <td key={index} colSpan='6' className="cumulative-score">{elem}</td>
                         }) : ""}
                     </tr>
                 </table>
